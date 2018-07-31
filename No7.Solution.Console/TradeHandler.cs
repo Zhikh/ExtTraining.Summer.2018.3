@@ -7,13 +7,14 @@ namespace No7.Solution.Console
 {
     public class TradeHandler
     {
-        private static float LotSize = 100000f;
+        private static float LotSize = 100000f;     // const - нигде не меняется
 
         public void HandleTrades(Stream stream)
         {
-
+            #region Обязанность для класса, который работает с файлаи
             var lines = new List<string>();
-            using (var reader = new StreamReader(stream))
+
+            using (var reader = new StreamReader(stream))   // отдельный метод для чтения
             {
                 string line;
                 while((line = reader.ReadLine()) != null)
@@ -21,7 +22,9 @@ namespace No7.Solution.Console
                     lines.Add(line);
                 }
             }
+            #endregion
 
+            // mappaer
             var trades = new List<TradeRecord>();
 
             var lineCount = 1;
@@ -29,13 +32,14 @@ namespace No7.Solution.Console
             {
                 var fields = line.Split(new char[] { ',' });
 
-                if(fields.Length != 3)
+                #region Ответственность логировщика смешана с ответственностью валидатора для TradeRecord, нет вариативности для логгирования 
+                if (fields.Length != 3)  // const!
                 {
                     System.Console.WriteLine("WARN: Line {0} malformed. Only {1} field(s) found.", lineCount, fields.Length);
                     continue;
                 }
 
-                if(fields[0].Length != 6)
+                if(fields[0].Length != 6)   // const!
                 {
                     System.Console.WriteLine("WARN: Trade currencies on line {0} malformed: '{1}'", lineCount, fields[0]);
                     continue;
@@ -50,6 +54,7 @@ namespace No7.Solution.Console
                 {
                     System.Console.WriteLine("WARN: Trade price on line {0} not a valid decimal: '{1}'", lineCount, fields[2]);
                 }
+                #endregion
 
                 var sourceCurrencyCode = fields[0].Substring(0, 3);
                 var destinationCurrencyCode = fields[0].Substring(3, 3);
@@ -67,7 +72,7 @@ namespace No7.Solution.Console
                 lineCount++;
             }
 
-            // save into database
+            #region Обязанность класса, который взаимодействет с бд
             string connectionString = ConfigurationManager.ConnectionStrings["TradeData"].ConnectionString;
             using (var connection = new SqlConnection(connectionString))
             {
@@ -92,8 +97,9 @@ namespace No7.Solution.Console
                 }
                 connection.Close();
             }
+            #endregion
 
-            System.Console.WriteLine("INFO: {0} trades processed", trades.Count);
+            System.Console.WriteLine("INFO: {0} trades processed", trades.Count); // exception & logger
         }
     }
 }
