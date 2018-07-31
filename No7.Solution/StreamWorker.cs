@@ -5,6 +5,7 @@ namespace No7.Solution
 {
     public static class StreamWorker
     {
+        #region public methods
         public static List<string> ReadAll(string path)
         {
             InputValidation(path);
@@ -38,7 +39,9 @@ namespace No7.Solution
 
             return lines;
         }
+        #endregion
 
+        #region Additional methods
         private static void InputValidation(string path)
         {
             if (!File.Exists(path))
@@ -46,5 +49,6 @@ namespace No7.Solution
                 throw new FileNotFoundException(nameof(path));
             }
         }
+        #endregion
     }
 }

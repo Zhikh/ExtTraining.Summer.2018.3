@@ -9,7 +9,7 @@ namespace No7.Solution.Console
     {
         private static float LotSize = 100000f;     // const - нигде не меняется и дальше этого класса не прорастает, + название поле должно быть lower-case
 
-        // перегружен обязанностями
+        // перегружен обязанностями, как метод, так и класс нарушают принцип единственной ответственности
         public void HandleTrades(Stream stream)
         {
             #region Обязанность для класса, который работает с файлами
@@ -44,9 +44,10 @@ namespace No7.Solution.Console
             {
                 var fields = line.Split(new char[] { ',' });
 
-                #region Ответственность логировщика
+                #region Ответственность логировщика и валидатора
                 /*
                  * Решение: использовать NLog (гибкий и легконастраиваемый)
+                 * валидация полученных данных будет ответственностью маппера - в зависимости от сущностей, с которых маппим, можно менять правила
                  */
                 if (fields.Length != 3)  // const!
                 {
@@ -71,8 +72,8 @@ namespace No7.Solution.Console
                 }
                 #endregion
 
-                var sourceCurrencyCode = fields[0].Substring(0, 3);
-                var destinationCurrencyCode = fields[0].Substring(3, 3);
+                var sourceCurrencyCode = fields[0].Substring(0, 3); // const 3
+                var destinationCurrencyCode = fields[0].Substring(3, 3); // const 3
 
                 var trade = new TradeRecord
                 {
@@ -100,10 +101,13 @@ namespace No7.Solution.Console
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
+
+                // отдельный метод
                 using(var transaction = connection.BeginTransaction())
                 {
                     foreach(var trade in trades)
                     {
+                        // отдельный метод 
                         var command = connection.CreateCommand();
                         command.Transaction = transaction;
                         command.CommandType = System.Data.CommandType.StoredProcedure;

@@ -5,14 +5,18 @@ namespace No7.Solution.Mappers
 {
     public static partial class TradeMappers
     {
-        private const int VALUE_LENGTH = 6;
+        #region Constants
         private const float LotSize = 100000f;
+        #endregion
 
+        #region Fields
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        #endregion
 
+        #region public methods
         public static Trade ToEntity(string currencyTypes, string amount, string price)
         {
-            if (currencyTypes.Length != VALUE_LENGTH)   
+            if (currencyTypes.Length != Trade.DEFAULT_SIZE * 2)   
             {
                 throw new ArgumentException($"Invalid length of {(nameof(currencyTypes))}!");
             }
@@ -26,14 +30,11 @@ namespace No7.Solution.Mappers
             {
                 throw new ArgumentException($"Trade {nameof(price)} not a valid integer!");
             }
-
-            var sourceCurrencyCode = currencyTypes.Substring(0, 3);
-            var destinationCurrencyCode = currencyTypes.Substring(3, 3);
-
+            
             var trade = new Trade
             {
-                SourceCurrency = sourceCurrencyCode,
-                DestinationCurrency = destinationCurrencyCode,
+                SourceCurrency = currencyTypes.Substring(0, Trade.DEFAULT_SIZE),
+                DestinationCurrency = currencyTypes.Substring(Trade.DEFAULT_SIZE, Trade.DEFAULT_SIZE),
                 Lots = tradeAmount / LotSize,
                 Price = tradePrice
             };
@@ -49,6 +50,13 @@ namespace No7.Solution.Mappers
             foreach (var line in data)
             {
                 var fields = line.Split(new char[] { ',' });
+
+                if (fields.Length != 3)
+                {
+                    logger.Warn($"Line {lineCount} malformed. Only {fields.Length} field(s) found.");
+
+                    continue;
+                }
 
                 try
                 {
@@ -66,5 +74,6 @@ namespace No7.Solution.Mappers
 
             return trades;
         }
+        #endregion
     }
 }

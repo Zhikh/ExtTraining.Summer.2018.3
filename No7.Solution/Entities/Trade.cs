@@ -1,13 +1,87 @@
-﻿namespace No7.Solution
+﻿using System;
+
+namespace No7.Solution
 {
     public class Trade
     {
-        public string DestinationCurrency { get; set;  }
+        internal const int DEFAULT_SIZE = 3;
 
-        public float Lots { get; set; }
+        private string _destinationCurrency;
+        private string _sourceCurrency;
+        private float _lots;
+        private decimal _price;
 
-        public decimal Price { get; set; }
+        public string DestinationCurrency
+        {
+            get
+            {
+                return _destinationCurrency;
+            }
 
-        public string SourceCurrency { get; set; }
+            set
+            {
+                if (value.Length != DEFAULT_SIZE)
+                {
+                    throw new ArgumentException($"The invalid currency name (length should be {DEFAULT_SIZE})");
+                }
+
+                _destinationCurrency = value;
+            }
+        }
+
+        public float Lots
+        {
+            get
+            {
+                return _lots;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException($"The invalid {nameof(Lots)} value!)");
+                }
+
+                _lots = value;
+            }
+        }
+
+        public decimal Price
+        {
+            get
+            {
+                return _price;
+            }
+
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException($"The invalid {nameof(Price)} value!)");
+                }
+
+                _price = value;
+            }
+        }
+
+        public string SourceCurrency
+        {
+            get
+            {
+                return _sourceCurrency;
+            }
+
+            set
+            {
+                if (value.Length != DEFAULT_SIZE)
+                {
+                    throw new ArgumentException($"The invalid currency name (length should be {DEFAULT_SIZE})");
+                }
+
+                _sourceCurrency = value;
+            }
+        }
+
     }
 }
