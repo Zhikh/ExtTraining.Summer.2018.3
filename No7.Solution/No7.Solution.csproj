@@ -48,17 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bad code\TradeHandler.cs" />
+    <Compile Include="Bad code\TradeRecord.cs" />
     <Compile Include="Mappers\ToEntity\TradeMappers.cs" />
+    <Compile Include="Mappers\ToString\TradeMappers.cs" />
     <Compile Include="Repositories\TradeRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ITradeRepository.cs" />
     <Compile Include="StreamWorker.cs" />
-    <Compile Include="Trade.cs" />
+    <Compile Include="Entities\Trade.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mappers\ToString\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

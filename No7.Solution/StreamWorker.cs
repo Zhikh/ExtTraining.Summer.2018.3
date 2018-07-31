@@ -23,6 +23,22 @@ namespace No7.Solution
             return lines;
         }
 
+        public static List<string> ReadAll(Stream stream)
+        {
+            var lines = new List<string>();
+
+            using (var reader = new StreamReader(stream))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    lines.Add(line);
+                }
+            }
+
+            return lines;
+        }
+
         private static void InputValidation(string path)
         {
             if (!File.Exists(path))

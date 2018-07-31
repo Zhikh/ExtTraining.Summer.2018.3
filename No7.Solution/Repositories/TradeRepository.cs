@@ -13,15 +13,9 @@ namespace No7.Solution
 
         public string ConnectionString { get; }
 
-
         public IEnumerable<Trade> GetAll()
         {
             throw new NotImplementedException();
-        }
-
-        public void InsertMany(string connectionString, IEnumerable<Trade> trades)
-        {
-            
         }
 
         public void InsertMany(IEnumerable<Trade> trades)
@@ -51,6 +45,7 @@ namespace No7.Solution
 
                     transaction.Commit();
                 }
+
                 connection.Close();
             }
         }

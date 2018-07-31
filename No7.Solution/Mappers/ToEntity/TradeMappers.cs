@@ -5,10 +5,10 @@ namespace No7.Solution.Mappers
 {
     public static partial class TradeMappers
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
         private const int VALUE_LENGTH = 6;
         private const float LotSize = 100000f;
+
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public static Trade ToEntity(string currencyTypes, string amount, string price)
         {
@@ -61,6 +61,8 @@ namespace No7.Solution.Mappers
 
                 lineCount++;
             }
+
+            logger.Info($"(The {trades.Count}) trades processed.");
 
             return trades;
         }

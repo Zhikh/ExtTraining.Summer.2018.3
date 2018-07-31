@@ -7,7 +7,7 @@ namespace No7.Solution.Console
 {
     public class TradeHandler
     {
-        private static float LotSize = 100000f;     // const - нигде не меняется и дальше этого класса не прорастает
+        private static float LotSize = 100000f;     // const - нигде не меняется и дальше этого класса не прорастает, + название поле должно быть lower-case
 
         // перегружен обязанностями
         public void HandleTrades(Stream stream)
