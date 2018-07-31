@@ -19,7 +19,7 @@ namespace No7.Solution.Console
 
             var repository = new TradeRepository(ConfigurationManager.ConnectionStrings[CONNECTION_DATA].ConnectionString);
 
-            repository.InsertMany(TradeMappers.ToMany(StreamWorker.Read(FILE_PATH)));
+            repository.InsertMany(TradeMappers.ToMany(StreamWorker.ReadAll(FILE_PATH)));
 
             System.Console.ReadKey();
         }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace No7.Solution.Repositories
 {
-    interface ITradeRepository<T> : IRepository <T>
+    interface IDBRepository<T> : IRepository <T>
     {
+
     }
 }

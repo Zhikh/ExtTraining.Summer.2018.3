@@ -5,7 +5,7 @@ namespace No7.Solution
 {
     public static class StreamWorker
     {
-        public static List<string> Read(string path)
+        public static List<string> ReadAll(string path)
         {
             InputValidation(path);
 
