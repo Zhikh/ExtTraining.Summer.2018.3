@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace No7.Solution.Mappers
 {
-    public static partial class TradeMappers
+    public static partial class TradeMapper
     {
         #region Constants
         private const float LotSize = 100000f;
-        #endregion
-
-        #region Fields
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
         #region public methods
@@ -40,39 +34,6 @@ namespace No7.Solution.Mappers
             };
 
             return trade;
-        }
-
-        public static List<Trade> ToMany(IEnumerable<string> data)
-        {
-            var trades = new List<Trade>();
-
-            var lineCount = 1;
-            foreach (var line in data)
-            {
-                var fields = line.Split(new char[] { ',' });
-
-                if (fields.Length != 3)
-                {
-                    logger.Warn($"Line {lineCount} malformed. Only {fields.Length} field(s) found.");
-
-                    continue;
-                }
-
-                try
-                {
-                    trades.Add(ToEntity(fields[0], fields[1], fields[2]));
-                }
-                catch (ArgumentException ex)
-                {
-                    logger.Warn(ex.Message + $"(on line {lineCount})");
-                }
-
-                lineCount++;
-            }
-
-            logger.Info($"(The {trades.Count}) trades processed.");
-
-            return trades;
         }
         #endregion
     }

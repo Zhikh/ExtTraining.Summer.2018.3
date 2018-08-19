@@ -50,12 +50,20 @@
   <ItemGroup>
     <Compile Include="Bad code\TradeHandler.cs" />
     <Compile Include="Bad code\TradeRecord.cs" />
+    <Compile Include="Concrete\DataProvider.cs" />
+    <Compile Include="Concrete\DataTransferService.cs" />
+    <Compile Include="Concrete\DbStorage.cs" />
+    <Compile Include="Concrete\Logger.cs" />
+    <Compile Include="Concrete\Parser.cs" />
+    <Compile Include="Concrete\Validator.cs" />
+    <Compile Include="Interfaces\IDataProvider.cs" />
+    <Compile Include="Interfaces\IDataTransferService.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IParser.cs" />
+    <Compile Include="Interfaces\IStorage.cs" />
+    <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Mappers\ToEntity\TradeMappers.cs" />
-    <Compile Include="Mappers\ToString\TradeMappers.cs" />
-    <Compile Include="Repositories\TradeRepository.cs" />
-    <Compile Include="Repositories\ITradeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamWorker.cs" />
     <Compile Include="Entities\Trade.cs" />
   </ItemGroup>
   <ItemGroup />
