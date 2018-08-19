@@ -5,8 +5,15 @@ namespace No7.Solution
 {
     public sealed class Logger : ILogger
     {
-        NLog.Logger logger;
+        #region Fields
+        private NLog.Logger logger;
+        #endregion
 
+        #region Public API
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Logger" /> for logging in file.
+        /// </summary>
+        /// <param name="fileName"> Name of logger file. </param>
         public Logger(string fileName)
         {
             logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,24 +27,43 @@ namespace No7.Solution
             NLog.LogManager.Configuration = config;
         }
 
+        /// <summary>
+        /// Saves error data to logger
+        /// </summary>
+        /// <param name="message"> Message for saving </param>
+        /// <param name="ex"> Exception </param>
         public void LogError(string message, Exception ex)
         {
             logger.Error(ex.StackTrace, message);
         }
 
+        /// <summary>
+        /// Saves data of fatal error to logger
+        /// </summary>
+        /// <param name="message"> Message for saving </param>
+        /// <param name="ex"> Exception </param>
         public void LogFatal(string message, Exception ex)
         {
             logger.Fatal(ex.StackTrace, message);
         }
 
+        /// <summary>
+        /// Saves info data to logger
+        /// </summary>
+        /// <param name="message"> Message for saving </param>
         public void LogInfo(string message)
         {
             logger.Info(message);
         }
 
+        /// <summary>
+        /// Saves warn data to logger
+        /// </summary>
+        /// <param name="message"> Message for saving </param>
         public void LogWarn(string message)
         {
             logger.Warn(message);
         }
+        #endregion
     }
 }

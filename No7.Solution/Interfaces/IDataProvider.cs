@@ -7,7 +7,7 @@ namespace No7.Solution.Interface
         /// <summary>
         /// Gets whole data from storage
         /// </summary>
-        /// <returns> Collection of elemenents of type T </returns>
+        /// <returns> Collection of elements of type T </returns>
         IEnumerable<T> GetAll();
     }
 }

@@ -7,13 +7,32 @@ namespace No7.Solution.Concrete
     public sealed class DbStorage : IStorage<Trade>
     {
         #region Public API
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbStorage"/>.
+        /// </summary>
+        /// <param name="connectionString"> Database connection string. </param>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="connectionString"> is null or empty. </paramref>
+        /// </exception>
         public DbStorage(string connectionString)
         {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new System.ArgumentException($"The parameter {nameof(connectionString)} can't be null or empty!");
+            }
+
             ConnectionString = connectionString;
         }
 
+        /// <summary>
+        /// Database connection string
+        /// </summary>
         public string ConnectionString { get; }
 
+        /// <summary>
+        /// Saves data to database
+        /// </summary>
+        /// <param name="entities"> Collection of the <see cref="Trade"/> elements. </param>
         public void Save(IEnumerable<Trade> entities)
         {
             using (var connection = new SqlConnection(ConnectionString))
